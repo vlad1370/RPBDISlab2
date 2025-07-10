@@ -5,7 +5,7 @@ using (var context = new ToplivoContext())
     bool continueRunning = true;
     while (continueRunning)
     {
-        Console.Clear();
+        //Console.Clear();
 
         Console.WriteLine(@"
     1 - Вывести все виды топлива
@@ -27,26 +27,31 @@ using (var context = new ToplivoContext())
                 case 1:
                     {
                         DisplayAllFuels(context);
+                        Pause();
                         break;
                     }
                 case 2:
                     {
                         DisplayFuelsWithDensityAbove(context, 1.5);
+                        Pause();
                         break;
                     }
                 case 3:
                     {
                         TotalIncExpByFuel(context);
+                        Pause();
                         break;
                     }
                 case 4:
                     {
                         FuelsByOperationDates(context);
+                        Pause();
                         break;
                     }
                 case 5:
                     {
                         FuelsAndOperationsNewerThan(context, new DateOnly(2010, 1, 1));
+                        Pause();
                         break;
                     }
                 case 6:
@@ -56,6 +61,7 @@ using (var context = new ToplivoContext())
                         newFuel.FuelDensity = 1111;
                         AddNewFuelToDB(context, newFuel);
                         DisplayAllFuels(context);
+                        Pause();
                         break;
                     }
                 case 7:
@@ -67,6 +73,7 @@ using (var context = new ToplivoContext())
                             Console.WriteLine($"ID: {item.OperationId}, Fuel ID: {item.FuelId}," +
                                 $" Tank ID: {item.TankId}, Inc/Exp: {item.IncExp}, Date: {item.Date}");
                         }
+                        Pause();
                         break;
                     }
                 case 8:
@@ -75,6 +82,7 @@ using (var context = new ToplivoContext())
                         int.TryParse(Console.ReadLine(), out int id);
                         DeleteFuelById(context, id);
                         DisplayAllFuels(context);
+                        Pause();
                         break;
                     }
                 case 9:
@@ -83,6 +91,7 @@ using (var context = new ToplivoContext())
                         int.TryParse(Console.ReadLine(), out int id);
                         DeleteOperationById(context, id);
                         DisplayAllOperations(context);
+                        Pause();
                         break;
                     }
                 case 10:
@@ -94,6 +103,7 @@ using (var context = new ToplivoContext())
                         }
                         context.SaveChanges();
                         DisplayAllTanks(context);
+                        Pause();
                         break;
                     }
                 case 0:
@@ -227,4 +237,10 @@ void DeleteOperationById (ToplivoContext context, int id)
     var operationToDelete = context.Operations.Single(o => o.OperationId == id);
     context.Operations.Remove(operationToDelete);
     context.SaveChanges();
+}
+
+void Pause()
+{
+    Console.WriteLine("Нажмите любую клавишу для продолжения...");
+    Console.ReadKey();
 }
