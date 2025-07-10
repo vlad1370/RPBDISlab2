@@ -5,7 +5,7 @@ using (var context = new ToplivoContext())
     bool continueRunning = true;
     while (continueRunning)
     {
-        //Console.Clear();
+        Console.Clear();
 
         Console.WriteLine(@"
     1 - Вывести все виды топлива
